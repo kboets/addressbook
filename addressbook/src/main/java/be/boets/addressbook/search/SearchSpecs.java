@@ -31,6 +31,10 @@ public class SearchSpecs {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("mainAddress").get("street")), "%" + criteria.street().toLowerCase() + "%"));
             }
 
+            if (criteria.number() != null && !criteria.number().isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("mainAddress").get("houseNumber")), "%" + criteria.number().toLowerCase() + "%"));
+            }
+
             if (criteria.zipCode() != null && !criteria.zipCode().isEmpty()) {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("mainAddress").get("zipCode")), "%" + criteria.zipCode().toLowerCase() + "%"));
             }
