@@ -6,7 +6,6 @@ import be.boets.addressbook.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -22,8 +21,8 @@ public class PersonService {
     }
 
     public Person findById(Integer id) {
-        Optional<Person> optionalPerson = personDao.getPersonById(id);
-        return optionalPerson.orElseThrow(() -> new ResourceNotFoundException("Could not find a person with id %s".formatted(id)));
+        return personDao.getPersonById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find a person with id %s".formatted(id)));
     }
 
     public void addPerson(Person person) {
