@@ -39,8 +39,8 @@ public class PersonController {
         personService.deletePerson(id);
     }
 
-    @PutMapping("{id}")
-    public void updatePerson(PersonDto personDto) {
+    @PutMapping()
+    public void updatePerson(@RequestBody PersonDto personDto) {
         personService.updatePerson(personMapper.toModel(personDto));
     }
 }

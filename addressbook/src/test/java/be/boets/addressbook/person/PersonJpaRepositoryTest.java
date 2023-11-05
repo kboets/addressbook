@@ -28,26 +28,6 @@ class PersonJpaRepositoryTest {
         autoCloseable.close();
     }
 
-    void search() {
-        // Given
-        // TODO create a way to mock static methods in junit 5 -> not clear now
-//        SearchCriteria searchCriteria = new SearchCriteria("Doe", null, null, null, null, null, null);
-//        List<Person> expectedPersons = new ArrayList<>();
-//        Person person = Person.PersonBuilder.aPerson().withName("DOE").build();
-//        expectedPersons.add(person);
-//        MockedStatic<Specification> expectedSpecification = mockStatic(Specification.class);
-//        // When
-//        Mockito.when(SearchSpecs.searchByCriteria(expectedPersons)).thenReturn()
-//        when(SearchSpecs.searchByCriteria(searchCriteria)).thenReturn(expectedSpecification);
-//        when(personRepository.findAll(expectedSpecification)).thenReturn(expectedPersons);
-//        List<Person> result = underTest.search(searchCriteria);
-//
-//        // Then
-//        verify(personRepository).findAll(expectedSpecification);
-//        assertEquals(expectedPersons, result);
-
-    }
-
     @Test
     void getPersonById() {
         // Given
