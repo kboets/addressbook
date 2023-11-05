@@ -1,4 +1,4 @@
-package be.boets.addressbook.integration;
+package be.boets.addressbook.journey;
 
 import be.boets.addressbook.dto.AddressDto;
 import be.boets.addressbook.dto.CountryDto;
@@ -7,13 +7,11 @@ import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import com.github.javafaker.PhoneNumber;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -22,13 +20,11 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
 
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@RunWith(SpringRunner.class)
-public class PersonControllerTest {
-
+class PersonControllerIntegrationTest {
     @Autowired
     private WebTestClient webTestClient;
     private static final String PERSON_URI = "/v1/person";
@@ -36,14 +32,15 @@ public class PersonControllerTest {
     protected static final Faker FAKER = new Faker();
     private Random random;
 
-    @Before
-    public void init() {
+    @BeforeEach
+    void init() {
         random = new Random();
+
     }
 
     @Test
-    public void canRegisterAPerson() {
-        // setup a person
+    void registerPerson() {
+        // Given
         int id = random.nextInt();
         Name name = FAKER.name();
         String email = name.lastName() + "." + name.firstName() + "@foobarhello123.com";
@@ -54,7 +51,8 @@ public class PersonControllerTest {
         CountryDto countryDto = new CountryDto(random.nextInt(1, 10000), "Belgie", "0032");
         AddressDto addressDto = new AddressDto(mainAddressId, address.streetName(), address.streetAddressNumber(), null, address.zipCode(), address.city(), countryDto);
         PersonDto personDto = new PersonDto(id, name.lastName(), name.lastName(), birthDate, null, phoneNumber.phoneNumber(), email, addressDto);
-        //send the post request
+        // When
+
         webTestClient.post()
                 .uri(PERSON_URI)
                 .accept(MediaType.APPLICATION_JSON)
@@ -62,11 +60,10 @@ public class PersonControllerTest {
                 .exchange()
                 .expectStatus()
                 .isOk();
-
     }
 
     @Test
-    public void canDeletePerson() {
+    void deletePerson() {
         // setup a person
         int id = random.nextInt();
         Name name = FAKER.name();
@@ -118,11 +115,10 @@ public class PersonControllerTest {
                 .exchange()
                 .expectStatus()
                 .isNotFound();
-
     }
 
     @Test
-    public void canUpdatePerson() {
+    void updatePerson() {
         // setup a person
         int id = random.nextInt();
         String firstName = "Jantje";
@@ -203,6 +199,4 @@ public class PersonControllerTest {
         assertThat(newLastInserted.id()).isEqualTo(lastInserted.id());
         assertThat(newLastInserted.email()).isEqualTo(newEmail);
     }
-
-
 }
