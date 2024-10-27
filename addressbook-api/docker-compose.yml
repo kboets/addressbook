@@ -1,0 +1,35 @@
+services:
+  db:
+    container_name: postgres
+    image: postgres:16
+    environment:
+      POSTGRES_USER: amigoscode
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  addressbook-api:
+    container_name: addressbook-api
+    image: kubo1601/addressbook-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/addressbook
+    ports:
+      - "8088:8080"
+    networks:
+      - postgres
+    depends_on:
+      - db
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
