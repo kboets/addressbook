@@ -2,9 +2,9 @@ spring:
   main:
     web-application-type: servlet
   datasource:
-    url: jdbc:postgresql://localhost:5432/addressbook
-    username: amigoscode
-    password: password
+    url: jdbc:postgresql://dpg-ctomakjtq21c73cus4p0-a.frankfurt-postgres.render.com:5432/kubo_db_rhn2
+    username: kubo_db_rhn2_user
+    password: 1qFFKmdni7TOkKQKy7LzohzQ5uZAFmg5
   jpa:
     hibernate:
       ddl-auto: none
