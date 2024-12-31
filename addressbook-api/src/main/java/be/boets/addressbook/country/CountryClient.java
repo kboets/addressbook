@@ -3,6 +3,8 @@ package be.boets.addressbook.country;
 import be.boets.addressbook.config.ClientProperties;
 import be.boets.addressbook.domain.Country;
 import be.boets.addressbook.exception.ClientException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.google.gson.JsonParser.parseString;
@@ -27,25 +30,35 @@ public class CountryClient {
     private final String version;
     private final ClientProperties clientProperties;
     private final HttpClient httpClient;
+    private final ObjectMapper objectMapper;
 
     public CountryClient(ClientProperties clientProperties) {
         this.clientProperties = clientProperties;
         this.httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
         this.version = "/v3.1";
+        this.objectMapper = new ObjectMapper();
     }
 
 
     public List<Country> getCountries() throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(createAllCountryUrl()))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.statusCode() != HttpURLConnection.HTTP_OK) {
-            throw new ClientException(response.statusCode(), "retrieve of all countries failed");
-        }
-        return parseJson(response.body());
+        // set in comment, throws a server side exception
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(createAllCountryUrl()))
+//                .header("Accept", "application/json")
+//                .header("User-Agent", "JavaHttpClient/17")
+//                .version(HttpClient.Version.HTTP_2)
+//                .method("GET", HttpRequest.BodyPublishers.noBody())
+//                .build();
+//        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+//        if (response.statusCode() != HttpURLConnection.HTTP_OK) {
+//            throw new ClientException(response.statusCode(), "retrieve of all countries failed");
+//        }
+//        return parseJson(response.body());
+
+        Map<String, List<Country>> result = objectMapper.readValue(CountryData.getAllEuropeCountries(), new TypeReference<>() {});
+        return result.get("country");
     }
+
 
     protected List<Country> parseJson(String jsonAsString) {
         List<Country> countries = new ArrayList<>();
