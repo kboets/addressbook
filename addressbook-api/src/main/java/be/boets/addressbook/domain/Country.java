@@ -1,5 +1,6 @@
 package be.boets.addressbook.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,8 +28,10 @@ public class Country implements Serializable  {
     private Integer id;
     @Column(nullable = false)
     private String name;
+    @JsonProperty("country_code")
     @Column(nullable = false)
     private String countryCode;
+    @JsonProperty("phone_code")
     @Column(nullable = false)
     private String phoneCode;
 
