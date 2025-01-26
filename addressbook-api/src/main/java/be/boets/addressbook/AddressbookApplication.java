@@ -1,18 +1,9 @@
 package be.boets.addressbook;
 
 import be.boets.addressbook.config.ClientProperties;
-import be.boets.addressbook.domain.Address;
-import be.boets.addressbook.domain.Country;
-import be.boets.addressbook.domain.Person;
-import be.boets.addressbook.person.PersonRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ClientProperties.class)
