@@ -1,12 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Component} from '@angular/core';
 import {PersonService} from './pages/services/person.service';
-import {Person} from './domain/person';
 import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgIf, NgForOf],
+  imports: [NgIf, NgForOf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
