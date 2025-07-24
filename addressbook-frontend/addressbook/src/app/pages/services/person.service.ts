@@ -38,7 +38,7 @@ export class PersonService {
 
   private allPersons$ = this.http.get<Person[]>(`${this.personsUrl}/all`).pipe(
     retry(2),
-    tap(persons => console.log('Fetched persons', persons.length)),
+    //tap(persons => console.log('Fetched persons', persons.length)),
     shareReplay(1),
     catchError(this.handleError)
   );

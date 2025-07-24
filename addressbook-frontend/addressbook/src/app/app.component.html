@@ -1,11 +1,28 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 
-<div class="container" *ngIf="allPersons() as allPersons">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color: white;" href="#">Addressbook</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="onOpenModal('add')"  data-toggle="modal" data-target="#exampleModal">Nieuw contact <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" name="key" id="searchName" placeholder="Zoek" aria-label="Search">
+    </form>
+  </div>
+</nav>
+
+<div class="container" id="main-container"  *ngIf="allPersons() as allPersons">
   <div class="row align-items-center">
     <div class="col-md-6">
       <div class="mb-3">
-        <h5 class="card-title">Contact List <span class="text-muted fw-normal ms-2">(834)</span></h5>
+        <h5 class="card-title">Contact List <span class="text-muted fw-normal ms-2">({{allPersons.length}})</span></h5>
       </div>
     </div>
     <div class="col-md-6">
@@ -23,14 +40,6 @@
         <div>
           <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Add New</a>
         </div>
-        <div class="dropdown">
-          <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -38,10 +47,6 @@
     <div class="col-xl-3 col-sm-6" *ngFor="let person of allPersons">
       <div class="card">
         <div class="card-body">
-          <div class="dropdown float-end">
-            <a class="text-muted dropdown-toggle font-size-16" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
-            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Edit</a><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Remove</a></div>
-          </div>
           <div class="d-flex align-items-center">
             <div><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-md rounded-circle img-thumbnail" /></div>
             <div class="flex-1 ms-3">
@@ -54,9 +59,9 @@
             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-email font-size-15 align-middle pe-2 text-primary"></i>{{person.email}} </p>
             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>{{person.mainAddress?.street}} {{person.mainAddress?.houseNumber}},  {{person.mainAddress?.zipCode}} {{person.mainAddress?.city}}</p>
           </div>
-          <div class="d-flex gap-2 pt-4">
-            <button type="button" class="btn btn-soft-primary btn-sm w-50"><i class="bx bx-user me-1"></i> Profile</button>
-            <button type="button" class="btn btn-primary btn-sm w-50"><i class="bx bx-message-square-dots me-1"></i> Contact</button>
+          <div class="float-right btn-group btn-group-sm">
+            <a (click)="onOpenModal('edit', person)" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+            <a (click)="onOpenModal( 'delete', person)" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
           </div>
         </div>
       </div>
@@ -85,5 +90,12 @@
         </ul>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Notification for no employees -->
+<div class="col-lg-12 col-md-12" *ngIf="allPersons().length === 0">
+  <div class="alert alert-info" role="alert">
+    <p>No employees found!</p>
   </div>
 </div>
