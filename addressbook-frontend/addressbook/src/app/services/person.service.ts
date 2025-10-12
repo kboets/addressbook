@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry, shareReplay, tap} from 'rxjs/operators';
-import {Person} from '../../domain/person';
+import {Person} from '../domain/person';
 import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({

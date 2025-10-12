@@ -1,4 +1,4 @@
 package be.boets.addressbook.dto;
 
-public record CountryDto(Integer id, String name, String countryCode) {
+public record CountryDto(Integer id, String name, String countryCode, String phoneCode) {
 }

@@ -1,1 +1,184 @@
-<p>add works!</p>
+<div class="container-fluid">
+
+  <div class="container">
+    <!-- Title -->
+    <div class="d-flex justify-content-between align-items-lg-center py-3 flex-column flex-lg-row">
+      <h2 class="h5 mb-3 mb-lg-0"><a routerLink="/overview" class="text-muted"><i class="bi bi-arrow-left-square me-2"></i></a> Maak nieuw contact aan.</h2>
+      <div class="hstack gap-3">
+        <button class="btn btn-light btn-sm btn-icon-text" (click)="onCancel()"><i class="bi bi-x me-1 mr-2"></i> <span class="text">Cancel</span></button>
+        <button class="btn btn-primary btn-sm btn-icon-text" (click)="onSubmit()" [disabled]="isSubmitting"><i class="bi bi-save"></i> <span class="text">Bewaar</span></button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <form [formGroup]="addPersonForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Left side -->
+        <div class="col-lg-8">
+          <!-- Basic information -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="h6 mb-4">Algemene informatie</h3>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Voornaam *</label>
+                    <input type="text" class="form-control" formControlName="firstName"
+                           [ngClass]="{'is-invalid': isFieldInvalid('firstName')}">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('firstName')">
+                      Voornaam is verplicht.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Naam</label>
+                    <input type="text" class="form-control" formControlName="name"
+                           [ngClass]="{'is-invalid': isFieldInvalid('name')}">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
+                      Naam is verplicht.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email"
+                           [ngClass]="{'is-invalid': isFieldInvalid('email')}">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+                      Geldig email adres is verplicht.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">GSM nummer</label>
+                    <div class="row g-2">
+                      <div class="col-4 col-md-3">
+                        <input  type="text" class="form-control form-control-sm" formControlName="mobilePhoneCode"
+                                [ngClass]="{'is-invalid': isFieldInvalid('mobilePhoneCode')}"/>
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('mobilePhoneCode')">
+                          Landcode is verplicht (bijv. 0032).
+                        </div>
+                      </div>
+                      <div class="col-8 col-md-9">
+                        <input type="text" class="form-control" formControlName="mobilePhoneNumber"
+                               [ngClass]="{'is-invalid': isFieldInvalid('mobilePhoneNumber')}" />
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('mobilePhoneNumber')">
+                          GSM nummer is verplicht.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Address -->
+          <div class="card mb-4" formGroupName="mainAddress">
+            <div class="card-body">
+              <h3 class="h6 mb-4">Adres gegevens</h3>
+              <div class="mb-3">
+                <label class="form-label">Straat</label>
+                <input type="text" class="form-control" formControlName="street"
+                       [ngClass]="{'is-invalid': isNestedFieldInvalid(['mainAddress', 'street'])}">
+                <div class="invalid-feedback" *ngIf="isNestedFieldInvalid(['mainAddress', 'street'])">
+                  Straat is verplicht.
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Huisnummer</label>
+                    <input type="text" class="form-control" formControlName="houseNumber"
+                           [ngClass]="{'is-invalid': isNestedFieldInvalid(['mainAddress', 'houseNumber'])}">
+                    <div class="invalid-feedback" *ngIf="isNestedFieldInvalid(['mainAddress', 'houseNumber'])">
+                      Huisnummer is verplicht.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Bus</label>
+                    <input type="text" class="form-control" formControlName="box">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Stad</label>
+                    <input type="text" class="form-control" formControlName="city"
+                           [ngClass]="{'is-invalid': isNestedFieldInvalid(['mainAddress', 'city'])}">
+                    <div class="invalid-feedback" *ngIf="isNestedFieldInvalid(['mainAddress', 'city'])">
+                      Stad is verplicht.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Postcode</label>
+                    <input type="text" class="form-control" formControlName="zipCode"
+                           [ngClass]="{'is-invalid': isNestedFieldInvalid(['mainAddress', 'zipCode'])}">
+                    <div class="invalid-feedback" *ngIf="isNestedFieldInvalid(['mainAddress', 'zipCode'])">
+                      Postcode is verplicht.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3" formGroupName="countryDto">
+                    <label class="form-label">Land</label>
+                    <select class="form-control" (change)="onCountrySelect($event)"
+                            [ngClass]="{'is-invalid': isNestedFieldInvalid(['mainAddress', 'countryDto', 'name'])}">
+                      <option [value]="belgiumCountry?.id">{{belgiumCountry?.name}}</option>
+                      <option *ngFor="let country of countries()" [value]="country.id">{{country.name}}</option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="isNestedFieldInvalid(['mainAddress', 'countryDto', 'name'])">
+                      Land is verplicht.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    (*) Verplichte velden
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right side -->
+        <div class="col-lg-4">
+          <!-- Status section removed as it's not in our data model -->
+
+          <!-- Notes section removed as it's not in our data model -->
+
+          <!-- Submit button at the bottom of the right column -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <button type="submit" class="btn btn-primary w-100" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Contact opslaan
+              </button>
+            </div>
+          </div>
+
+          <!-- Form status indicator -->
+          <div class="card mb-4" *ngIf="addPersonForm.invalid && addPersonForm.touched">
+            <div class="card-body bg-light">
+              <h3 class="h6 text-danger">Formulier onvolledig</h3>
+              <p class="small mb-0">Vul alle verplichte velden in om het contact op te slaan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

@@ -50,7 +50,7 @@ class PersonControllerIntegrationTest {
         PhoneNumber phoneNumber = FAKER.phoneNumber();
         int mainAddressId = random.nextInt();
         Address address = FAKER.address();
-        CountryDto countryDto = new CountryDto(53, "Belgie", "0032");
+        CountryDto countryDto = new CountryDto(53, "Belgie", "BE", "0032");
         AddressDto addressDto = new AddressDto(mainAddressId, address.streetName(), address.streetAddressNumber(), null, address.zipCode(), address.city(), countryDto);
         PersonDto personDto = new PersonDto(id, name.lastName(), name.lastName(), birthDate, null, phoneNumber.phoneNumber(), email, addressDto);
         // When
@@ -74,7 +74,7 @@ class PersonControllerIntegrationTest {
         PhoneNumber phoneNumber = FAKER.phoneNumber();
         int mainAddressId = random.nextInt();
         Address address = FAKER.address();
-        CountryDto countryDto = new CountryDto(53, "Belgie", "0032");
+        CountryDto countryDto = new CountryDto(53, "Belgie", "BE","0032");
         AddressDto addressDto = new AddressDto(mainAddressId, address.streetName(), address.streetAddressNumber(), null, address.zipCode(), address.city(), countryDto);
         PersonDto personDto = new PersonDto(id, name.lastName(), name.lastName(), birthDate, null, phoneNumber.phoneNumber(), email, addressDto);
 
@@ -130,7 +130,7 @@ class PersonControllerIntegrationTest {
         PhoneNumber phoneNumber = FAKER.phoneNumber();
         int mainAddressId = random.nextInt();
         Address address = FAKER.address();
-        CountryDto countryDto = new CountryDto(53, "Belgie", "0032");
+        CountryDto countryDto = new CountryDto(53, "Belgie", "BE", "0032");
         AddressDto addressDto = new AddressDto(mainAddressId, address.streetName(), address.streetAddressNumber(), null, address.zipCode(), address.city(), countryDto);
         PersonDto personDto = new PersonDto(id, lastName, lastName, birthDate, null, phoneNumber.phoneNumber(), email, addressDto);
 
